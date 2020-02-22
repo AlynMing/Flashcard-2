@@ -11,7 +11,7 @@ Basic flashcard app that can display a question, where a user can toggle choose 
 ### App Walk-though
 <img src="https://github.com/michellebau/Flashcard/raw/master/Lab1%20-%20Optionals%201%20%26%202.gif" width=200><br>
 <img src="https://github.com/michellebau/Flashcard/raw/master/Lab1%20-%20Optional%203.gif" width=200><br>
-Displaying Optional task 1-3
+Displaying Optional tasks 1-3
 
 ## Required
 - [x] Create New Project in Android Studio
