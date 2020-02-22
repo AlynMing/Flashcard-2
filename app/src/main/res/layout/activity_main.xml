@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/flashcard_question"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="Who is the 44th President of the United States?"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textColor="#000033"
+        android:background="@drawable/card_background"
+        android:elevation="8dp" />
+
+    <TextView
+        android:id="@+id/flashcard_ans1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="250dp"
+        android:text="Bill Clinton"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/ans_background"
+        android:elevation="8dp" />
+
+    <TextView
+        android:id="@+id/flashcard_ans2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="350dp"
+        android:text="George H.W. Bush"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/ans_background"
+        android:elevation="8dp" />
+
+    <TextView
+        android:id="@+id/flashcard_ans3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="450dp"
+        android:background="@drawable/ans_background"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:text="Barack Obama"
+        android:textColor="#ffffff"
+        android:textSize="40sp" />
+
+    <!-- to be implemented at a later time
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/toggle_choices_visibility"
+        android:src="@drawable/ic_iconmonstr_eye_8"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+        -->
+
+</RelativeLayout>
