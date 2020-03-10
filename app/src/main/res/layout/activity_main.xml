@@ -54,14 +54,33 @@
         android:textColor="#ffffff"
         android:textSize="40sp" />
 
-    <!-- to be implemented at a later time
+    <TextView
+        android:id="@+id/flashcard_ans3copy"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/ans_background"
+        android:visibility="invisible"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:text="Barack Obama"
+        android:textColor="#ffffff"
+        android:textSize="40sp" />
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/toggle_choices_visibility"
-        android:src="@drawable/ic_iconmonstr_eye_8"
+        android:src="@drawable/ic_iconmonstr_eye_5"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
-        -->
+
+    <ImageView
+        android:id="@+id/addBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_iconmonstr_plus_6"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
