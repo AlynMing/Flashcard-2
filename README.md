@@ -7,7 +7,7 @@ App can now register another card based on user input. There is an option to can
 
 ### App Walk-though
 
-<img src="https://imgur.com/a/5IDt0T3" width=200><br>
+<img src="https://github.com/michellebau/Flashcard/raw/master/Lab2.gif" width=200><br>
 
 ## Required
 - [x] User can click on a ‘+’ button that takes the user to new ‘Add Card Screen’
