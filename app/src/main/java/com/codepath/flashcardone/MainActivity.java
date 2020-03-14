@@ -8,14 +8,50 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     boolean isShowingAnswers = true;
+    FlashcardDatabase flashcardDatabase;
+    // a list of flashcards
+    List<Flashcard> allFlashcards;
+    // int variable to represent current index of list, allFlashcards
+    int currentCardDisplayedIndex = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        flashcardDatabase = new FlashcardDatabase(this);
+        // flashcardDatabase = new FlashcardDatabase(getApplicationContext());
+        // to update local variable holding the list of flashcards
+        allFlashcards = flashcardDatabase.getAllCards();
+
+        if (allFlashcards != null && allFlashcards.size() > 0) {
+            ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(0).getQuestion());
+            ((TextView) findViewById(R.id.flashcard_ans3copy)).setText(allFlashcards.get(0).getAnswer());
+        }
+
+        findViewById(R.id.nextBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // increment index to show the next card
+                currentCardDisplayedIndex++;
+
+                // to avoid an IndexOutOfBoundsError to when checking for the last indexed card in the list
+                if (currentCardDisplayedIndex > allFlashcards.size() - 1) {
+                    currentCardDisplayedIndex = 0;
+                }
+
+                // set the question and answer TextViews with data from database
+                ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+                findViewById(R.id.flashcard_question).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.flashcard_ans3copy)).setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                findViewById(R.id.flashcard_ans3copy).setVisibility(View.INVISIBLE);
+            }
+        });
 
         // setting background color of a wrong choice to red when selected
         findViewById(R.id.flashcard_ans1).setOnClickListener(new View.OnClickListener() {
@@ -102,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
@@ -113,7 +150,11 @@ public class MainActivity extends AppCompatActivity {
             flashcardQuestion.setText(Question);
             TextView flashcardAnswer = findViewById(R.id.flashcard_ans3copy);
             flashcardAnswer.setText(Answer);
+            // to insert flashcard
+            flashcardDatabase.insertCard(new Flashcard(Question, Answer));
 
         }
     }
+
+
 }
