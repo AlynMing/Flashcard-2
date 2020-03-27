@@ -4,31 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCardActivity">
+    tools:context=".AddCardActivity"
+    android:background="@color/gray">
 
     <ImageView
         android:id="@+id/cancelBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/ic_iconmonstr_cancel"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="5dp" />
 
     <ImageView
         android:id="@+id/saveBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/ic_iconmonstr_save"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp" />
 
     <EditText
         android:id="@+id/editTextQ"
         android:layout_width="match_parent"
         android:layout_height="100sp"
         android:layout_marginTop="125dp"
+        android:layout_marginHorizontal="15dp"
         android:hint="Type in your question here: "
         android:inputType="textMultiLine" />
 
@@ -37,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="100sp"
         android:layout_marginTop="250dp"
+        android:layout_marginHorizontal="15dp"
         android:hint="Type in your answer here: "
         android:inputType="textMultiLine" />
 

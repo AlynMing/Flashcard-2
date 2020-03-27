@@ -2,9 +2,13 @@ package com.codepath.flashcardone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +28,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // loading animation resource files to use
+        final Animation leftOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.left_out);
+        final Animation rightIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_in);
+
+        leftOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // this method is called when the animation first starts
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // this method is called when the animation is finished playing
+                findViewById(R.id.flashcard_question).startAnimation(rightIn);
+                // displaying the next question
+                ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // we don't need to worry about this method
+            }
+        });
+
         flashcardDatabase = new FlashcardDatabase(this);
         // flashcardDatabase = new FlashcardDatabase(getApplicationContext());
         // to update local variable holding the list of flashcards
@@ -33,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(0).getQuestion());
             ((TextView) findViewById(R.id.flashcard_ans3copy)).setText(allFlashcards.get(0).getAnswer());
         }
+
 
         findViewById(R.id.nextBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
                     currentCardDisplayedIndex = 0;
                 }
 
-                // set the question and answer TextViews with data from database
-                ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
-                findViewById(R.id.flashcard_question).setVisibility(View.VISIBLE);
+
+                // set the question and answer TextViews with data from database => leftOut's onAnimationEnd
+                // findViewById(R.id.flashcard_question).setVisibility(View.VISIBLE); => execute animation leftOut below
+                findViewById(R.id.flashcard_question).startAnimation(leftOut);
                 ((TextView) findViewById(R.id.flashcard_ans3copy)).setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
                 findViewById(R.id.flashcard_ans3copy).setVisibility(View.INVISIBLE);
+
             }
         });
 
@@ -88,12 +120,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // to hide question and display answer when question is clicked
+        // animation to present correct answer side of flashcard
+        final View answerView = findViewById(R.id.flashcard_ans3copy);
+
+        // to hide question and display correct answer when question is clicked => now animation
         findViewById(R.id.flashcard_question).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findViewById(R.id.flashcard_ans3copy).setVisibility(View.VISIBLE);
+                // findViewById(R.id.flashcard_ans3copy).setVisibility(View.VISIBLE);
+                // findViewById(R.id.flashcard_question).setVisibility(View.INVISIBLE);
+
+                // get the center for the clipping circle
+                int cx = answerView.getWidth() / 2;
+                int cy = answerView.getHeight() / 2;
+
+                // obtain the radius
+                float finalRadius = (float) Math.hypot(cx, cy);
+
+                // create the animator for this view
+                Animator anim = ViewAnimationUtils.createCircularReveal(answerView, cx, cy, 0f, finalRadius);
+
+                // hide the question and show the correct answer to prepate for playing the animation
                 findViewById(R.id.flashcard_question).setVisibility(View.INVISIBLE);
+                answerView.setVisibility(View.VISIBLE);
+
+                anim.setDuration(3000);
+                anim.start();
             }
         });
 
@@ -112,9 +164,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // when is set to true
                 if (isShowingAnswers) {
-                    findViewById(R.id.flashcard_ans1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_ans2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_ans3).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.flashcard_ans1).setVisibility(View.GONE);
+                    findViewById(R.id.flashcard_ans2).setVisibility(View.GONE);
+                    findViewById(R.id.flashcard_ans3).setVisibility(View.GONE);
                     ((ImageView) findViewById(R.id.toggle_choices_visibility)).setImageResource(R.drawable.ic_iconmonstr_eye_8);
                     isShowingAnswers = false;
                 }
@@ -135,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
                 MainActivity.this.startActivityForResult(intent, 100);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
 
             }
         });

@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="wrongRed">#ff1414</color>
     <color name="correctGreen">#4d9900</color>
+    <color name="gray">#FFFFFF</color>
 </resources>
